@@ -6,13 +6,32 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-	<div id="camera">
-		<canvas id="camera_canvas" width="800" height="600"></canvas>
-	</div>
-	
+	<video id="live_video"></video>	
 	<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
-	<script type="text/javascript" src="js/JSARToolKit.min.js"></script	
+	<script type="text/javascript" src="js/JSARToolKit.min.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
+
+	<script type="text/javascript">
+if (navigator.webkitGetUserMedia) {  
+  navigator.webkitGetUserMedia(
+    // Первый параметр - так называемые constraints, ограничения;
+    // в данном случае - предпочтительные параметры запрашиваемого потока:
+    {
+      audio: true,  // запрашиваем и аудио,...
+      video: true   // ...и видео
+    },
+    // Второй параметр - функция, вызываемая в случае успеха
+    function(stream) { // в качестве параметра передается объект LocalMediaStream
+      console.log('Stream:', stream);
+    },
+    // Третий параметр - функция, вызываемая в случае ошибки
+    function(error) { // в качестве параметра передается объект с ошибкой
+      console.log('Error:', error);
+    }
+  );
+} else {
+  console.log('navigator.webkitGetUserMedia not supported. Are you using latest Chrome/Chromium?');
+}
+	</script>
 </body>
 </html>
